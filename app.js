@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
-// const { url } = require("inspector");
+const { url } = require("inspector");
 
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// Home route
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/signup.html");
 });
@@ -56,6 +58,11 @@ app.post("/", function (req, res) {
   });
   request.write(jsonData);
   request.end();
+});
+
+// Failure route
+app.post("/failure", function(req, res){
+  res.redirect("/");
 });
 
 app.listen(3000, function () {
